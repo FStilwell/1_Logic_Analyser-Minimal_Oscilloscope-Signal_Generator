@@ -1,0 +1,34 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/.pio/build/teensy31/firmware.elf",
+            "toolchainBinDir": "C:/Users/Flynn Stilwell/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/Flynn Stilwell/.platformio/platforms/teensy/misc/svd/MK20D5.svd",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            },
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/.pio/build/teensy31/firmware.elf",
+            "toolchainBinDir": "C:/Users/Flynn Stilwell/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/Flynn Stilwell/.platformio/platforms/teensy/misc/svd/MK20D5.svd",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
