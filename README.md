@@ -79,6 +79,7 @@ The state transition diagram can be seen in figure 1 below. Full PDF version can
 ![State Transition Diagram](Project_Media/Images/STD_image.PNG)
 *Figure 1: State Transition Diagram*
 
+
 ## 4. Results
 
 ## 5. Discussion
