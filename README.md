@@ -29,7 +29,29 @@ The program was intially created in several smaller programs, each with dedicate
 
 ## 3. Methods
 
-### 3.1 Finite State Machine
+### 3.1 Prototype Overview
+
+Most of the prototype was pre-assembled from a previous prototype. A second breadboard was added to include the OLED screen.
+
+#### Overview Image
+
+The annotated overview image is seen in figure 1 below.
+
+![Prototype overview](Project_Media/Images/Prototype_overview_annotated.png)
+*Figure 1: Annotated Prototype Overview*
+
+#### Schematic
+
+The circuit schematic in figure 2 was created using Autodesk Eagle. The files for which can be found [here](Project_Media/Eagle_files).
+
+![Circuit schematic](Project_Media/Images/Circuit_schematic.PNG)
+*Figure 2: Circuit schematic*
+
+### Operation
+
+This system can be operated simultaneosly using PC USB to UART character inputs or the system's pushbutton and potentiometer as a cursor control.
+
+### 3.2 Finite State Machine Design
 
 A Moore Finite state machine was used for the program as the system can be sectioned into varous descrete modes, with its output actions only determined by its current state.
 
@@ -74,16 +96,17 @@ The actions are likely to be complex, so the following actions can be taken as g
 
 #### State Transition Diagram
 
-The state transition diagram can be seen in figure 1 below. Full PDF version can be found [here](Project_Media/STD_diagram.pdf). This diagram utilizes all states, events, and actions outlined previously. The diagram is busier than it needs to be as each transition is shown as serparate event arrows. This could have been simplified by combining each event with "or" statements.
+The state transition diagram can be seen in figure 3 below. Full PDF version can be found [here](Project_Media/STD_diagram.pdf). This diagram utilizes all states, events, and actions outlined previously. The diagram is busier than it needs to be as each transition is shown as serparate event arrows. This could have been simplified by combining each event with "or" statements.
 
 ![State Transition Diagram](Project_Media/Images/STD_image.PNG)
-*Figure 1: State Transition Diagram*
+*Figure 3: State Transition Diagram*
 
-### 3.1.1 Finite State Machine Implementation
+#### 3.2.1 Finite State Machine Implementation
 
 The implementation before any actions were added can be seen below.
 
 #### Setups
+
     //***Finite State Machine Setups***
     //Events
     volatile bool buttonPressed = false;
@@ -198,6 +221,84 @@ The "enum" variable type is useful for defining the states as it can enumerate a
             //ignore
             break;
         }
+
+Each state includes a "checkConditions()" function for polling all the events.
+
+### 3.3 OLED Screen
+
+#### 3.3.1 I2C Protocol
+
+I2C, or Inter-integrated circuit, is a synchronous, half-duplex communication protocol. This means that it includes a dedicate clock wire to synchronise the communication between devices, and a single data signal wire which can carry information in both directions, one direction at a time. Each device on using the I2c protocol needs an adress so that the master controller can select which device it wants to send or receive information from. A simplified diagram can be seen in figure 4 below. Pullup resistors are often added to discharge the capacitance induced charge between the two wires.
+
+![I2C protocol](Project_Media/Images/I2c_protocol_basic.png)
+*Figure 4: Simplified I2C protocol diagram  (Circuit Basics, n.d.)*
+
+#### 3.3.2 Libraries
+
+The SSD1306 required libraries to be utilised. The Adafruit_SSD1306 and Adafruit_GFX libraries were used for this.
+
+#### 3.3.3 Finding OLED Screen's I2C Device Adress
+
+An arduino example program was used to find the screens I2C device address. The program scans through standard 7-bit I2C adresses and outputs the device's address to the serial monitor if it finds it. It found that the SSD1306 OLED screen's device adress is "0x3C".
+
+#### 3.3.4 Testing the OLED Screen
+
+The OLED screen was tested using an example program from the Adafruit_SSD1306 library. The program scrolled through all its different drawing functions.
+
+The first screen used had an issue with its reolution. The majority of the top of the screen appeared to have a reduced resolution. A new screen was given which worked properly.
+
+### 3.4 Program Overview
+
+#### 3.4.1 Minimal Oscilloscope
+
+A function was created for a simple oscilloscope which took a reading from the "Ch1" analogue to digital converter (ADC) pin, displayed it on a set of axes on the screen, and printed the current voltage reading in millivolts on the screen. This function was used in FSM states; OsciMode, FuncGenMode, SquareWave, SinWave, and TriangleWave. This was first created as a stand-alone "sub-project" found [here](Sub_Projects/SimpleOscilloscope2) before being placed in a function.
+
+The main code for the function can be seen below:
+
+    //X Draw Values
+    uint32_t prevXDrawVal = currXDrawVal-1;
+    if(currXDrawVal >= 0 && currXDrawVal <= plotWidth){currXDrawVal++;} //Configure counter
+    else{currXDrawVal = prevXDrawVal = 0; display.clearDisplay();}
+    
+
+    //Channel 1 A/D reading and mV mapping
+    uint32_t potVal = analogRead(ch1Pin); 
+    uint32_t volts_mV = map(potVal,0,1023,0,maxVoltage_mV);
+
+    //Y Draw Values
+    static uint32_t prevYDrawVal = 0;
+    static uint32_t currYDrawVal = 0;
+    prevYDrawVal = currYDrawVal; //y value from previous cycle
+    currYDrawVal = plotHeight - map(analogRead(ch1Pin),0, 1023, 0, plotHeight);
+    currYDrawVal = currYDrawVal + plotHeightOffset;
+
+    //===================== OLED Screen Plotting =====================
+    //Draw X Axis
+    display.drawLine(0,SCREEN_HEIGHT-1,SCREEN_WIDTH-1,SCREEN_HEIGHT-1, WHITE);
+    //Draw Y Axis
+    display.drawLine(0, plotHeightOffset, 0, SCREEN_HEIGHT-1, WHITE);
+    
+    //Display Value
+    static int16_t displayValXPos = (SCREEN_WIDTH-1)/2 + 2;  //Start at 1/3 of screen
+    display.fillRect(displayValXPos, 0, displayValXPos -2, plotHeightOffset, BLACK);
+    display.setTextSize(1); display.setTextColor(WHITE); // Draw white text, size 1
+    display.setCursor(displayValXPos, 0);                // Start at top middle
+    display.print(("Y = "));
+    display.print((volts_mV));
+    display.println(("mV"));
+
+    //Plot Values
+    display.drawLine(prevXDrawVal, prevYDrawVal, currXDrawVal, currYDrawVal, WHITE);
+    Serial.println(volts_mV);
+    
+    //Update Screen
+    display.display();  
+
+This code works best for low-speed signals as it samples once per column for the screen. This way, it can only sample signals as fast as the screen can process which sub-optimal for speed.
+
+#### 3.4.2 Function Generator
+
+The function generator state in the program works as another menu screen.
 
 ## 4. Results
 
