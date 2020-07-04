@@ -74,11 +74,130 @@ The actions are likely to be complex, so the following actions can be taken as g
 
 #### State Transition Diagram
 
-The state transition diagram can be seen in figure 1 below. Full PDF version can be found [here](Project_Media/STD_diagram.pdf). This diagram utilizes all states, events, and actions outlined previously. The diagram is busier than it needs to be as each event is shown as serparate arrows. This could have been simplified by combining each event with "or" statements.
+The state transition diagram can be seen in figure 1 below. Full PDF version can be found [here](Project_Media/STD_diagram.pdf). This diagram utilizes all states, events, and actions outlined previously. The diagram is busier than it needs to be as each transition is shown as serparate event arrows. This could have been simplified by combining each event with "or" statements.
 
 ![State Transition Diagram](Project_Media/Images/STD_image.PNG)
 *Figure 1: State Transition Diagram*
 
+### 3.1.1 Finite State Machine Implementation
+
+The implementation before any actions were added can be seen below.
+
+#### Setups
+    //***Finite State Machine Setups***
+    //Events
+    volatile bool buttonPressed = false;
+    bool BP_pot0 = false; //Button pressed and pot value 0
+    bool BP_pot1 = false; //Button pressed and pot value 1
+    bool BP_pot2 = false;
+    bool BP_pot3 = false;
+    bool serialIn0 = false; //Serial input 0
+    bool serialIn1 = false; //Serial input 1
+    bool serialIn2 = false;
+    bool serialIn3 = false;
+
+    //States
+    enum states {
+    StartScreen, 
+    SelectionMenu,
+    OsciMode, 
+    FuncGenMode, 
+    LogicAnalyserMode, 
+    SquareWave, 
+    SinWave, 
+    TriangleWave,
+    };
+
+    states currentState = StartScreen;
+
+The "enum" variable type is useful for defining the states as it can enumerate a comma-separated list. Each enumerator in the list can be called as its name, but it is represented as a number for the compiler. This helps with readability.
+
+#### Main code
+
+    //============= Finite State Machine =============
+    switch (currentState) {
+        case StartScreen:
+            Serial.println("Screen");
+            checkConditions();
+            if(buttonPressed || serialIn1){
+            currentState = SelectionMenu; 
+            buttonPressed = false;
+            }
+            break;
+
+        case SelectionMenu:
+            Serial.println("Menu");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = StartScreen; //Go back
+            buttonPressed = false;
+            } 
+            if(BP_pot1 || serialIn1){currentState = OsciMode;}
+            if(BP_pot2 || serialIn2){currentState = LogicAnalyserMode;}
+            if(BP_pot3 || serialIn3){currentState = FuncGenMode;}
+            break;
+
+        case OsciMode:
+            Serial.println("OsciMode");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = SelectionMenu;  //Go back
+            buttonPressed = false;
+            }
+            break;
+
+        case FuncGenMode:
+            Serial.println("FuncGenMode");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = SelectionMenu; //Go back
+            buttonPressed = false;
+            } 
+            if(BP_pot1 || serialIn1){currentState = SquareWave;}
+            if(BP_pot2 || serialIn2){currentState = SinWave;}
+            if(BP_pot3){currentState = TriangleWave;}
+            break;
+
+        case LogicAnalyserMode:
+            Serial.println("LogicAnalyserMode");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = FuncGenMode;  //Go back
+            buttonPressed = false;
+            }
+            break;
+
+        case SquareWave:
+            Serial.println("SquareWave");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = FuncGenMode;  //Go back
+            buttonPressed = false;
+            }
+            break;
+
+        case SinWave:
+            Serial.println("SinWave");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = FuncGenMode;  //Go back
+            buttonPressed = false;
+            }
+            break;
+
+        case TriangleWave:
+            Serial.println("TriangleWave");
+            checkConditions();
+            if(buttonPressed || serialIn0){
+            currentState = FuncGenMode;  //Go back
+            buttonPressed = false;
+            }
+            break;
+
+        default:
+            //ignore
+            break;
+        }
 
 ## 4. Results
 
