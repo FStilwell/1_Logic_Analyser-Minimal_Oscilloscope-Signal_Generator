@@ -77,6 +77,7 @@ The actions are likely to be complex, so the following actions can be taken as g
 The state transition diagram can be seen in figure 1 below. Full PDF version can be found [here](Project_Media/STD_diagram.pdf). This diagram utilizes all states, events, and actions outlined previously. The diagram is busier than it needs to be as each event is shown as serparate arrows. This could have been simplified by combining each event with "or" statements.
 
 ![State Transition Diagram](Project_Media/Images/STD_image.PNG)
+*Figure 1: State Transition Diagram*
 
 ## 4. Results
 
