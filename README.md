@@ -541,7 +541,7 @@ The function generators were not as customisable as they could have been due to 
 
 The sine wave generator serial plot mismatch may have been fixed by using a float variable type to plot the values. The mismatch seemed to occur when the period of the wave was not matched correctly with the OLED screen updates. If the oscilloscope had have been better, the signal generators could have been time-based and displayed properly as there seemed to be a connection between the screen update time and the signal period. There had not been enough time to investigate this thoroughly.
 
-Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project time managment can be found [here](Project_Media/Clockify_Summary_Report_06_22_2020-07_05_2020.pdf) as an additional piece of information.
+Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project time managment can be found [here](Project_Media/Clockify_Summary_Report_06_22_2020-07_05_2020.pdf) as an additional piece of project information.
 
 ## 6. References
 
