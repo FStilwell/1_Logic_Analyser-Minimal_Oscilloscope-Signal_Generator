@@ -31,10 +31,10 @@
 *.out
 *.app
 
-*.pio
+*/.pio
 
-*.vscode
+*/.vscode
 
 *.ini
 
-*.gitignore
+*/.gitignore
