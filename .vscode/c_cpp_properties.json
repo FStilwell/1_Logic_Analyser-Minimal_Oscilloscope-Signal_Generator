@@ -6,8 +6,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/include",
-                "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/src",
+                "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/1_Logic_Analyser-Minimal_Oscilloscope-Signal_Generator/include",
+                "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/1_Logic_Analyser-Minimal_Oscilloscope-Signal_Generator/src",
                 "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit SSD1306_ID135",
                 "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit GFX Library_ID13",
                 "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit BusIO_ID6214",
@@ -119,8 +119,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/include",
-                    "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/Project1_development/Compiled_program/src",
+                    "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/1_Logic_Analyser-Minimal_Oscilloscope-Signal_Generator/include",
+                    "D:/School Work/Year 3/MG7017 Embedded Systems/Repositories/1_Logic_Analyser-Minimal_Oscilloscope-Signal_Generator/src",
                     "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit SSD1306_ID135",
                     "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit GFX Library_ID13",
                     "C:/Users/Flynn Stilwell/.platformio/lib/Adafruit BusIO_ID6214",
