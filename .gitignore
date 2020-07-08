@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+*.pio
+
+*.vscode
+
+*.ini
+
+*.gitignore
