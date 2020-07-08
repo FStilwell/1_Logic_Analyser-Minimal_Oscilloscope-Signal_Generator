@@ -1,8 +1,12 @@
 # Assignment 1: “Logic Analyzer + Minimal Oscilloscope + Signal Generator" Report
 
-Embed assignment coversheet here
+![Assignment Coversheet](Project_Media/Images/Assignment_Coversheet_image.PNG)
 
 ## 1. Abstract
+
+The aim of this project was to design and construct a prototype of a system with the functionality of a minimal oscilloscope, signal generator with square wave, triangle wave and sine wave output capability, and a logic analyser. A prototype was constructed on a breadboard using a Teensy 3.2 development board and operated by a button, potentiometer, and PC USB to UART communication. The system's display made use of an SSD1306 OLED screen and UART to PC USB, visualised on a program called SerialPlot. The prototype performed at an adequate level and had not included the logic analyser function.
+
+The video demonstration for this assignment can be found at this [link](<https://youtu.be/k7B1CE4BUfc>)
 
 ## 2. Introduction
 
@@ -537,7 +541,7 @@ The function generators were not as customisable as they could have been due to 
 
 The sine wave generator serial plot mismatch may have been fixed by using a float variable type to plot the values. The mismatch seemed to occur when the period of the wave was not matched correctly with the OLED screen updates. If the oscilloscope had have been better, the signal generators could have been time-based and displayed properly as there seemed to be a connection between the screen update time and the signal period. There had not been enough time to investigate this thoroughly.
 
-Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project can be seen in figure 7 below as an additional piece of information.
+Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project time managment can be found [here](Project_Media/Clockify_Summary_Report_06_22_2020-07_05_2020.pdf) as an additional piece of information.
 
 ## 6. References
 
