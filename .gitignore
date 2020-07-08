@@ -35,6 +35,6 @@
 
 */.vscode
 
-*.ini
+.gitignore
 
-*/.gitignore
+platformio.ini
