@@ -4,13 +4,13 @@
 
 ## 1. Abstract
 
-The aim of this project was to design and construct a prototype of a system with the functionality of a minimal oscilloscope, signal generator with square wave, triangle wave and sine wave output capability, and a logic analyser. A prototype was constructed on a breadboard using a Teensy 3.2 development board and operated by a button, potentiometer, and PC USB to UART communication. The system's display made use of an SSD1306 OLED screen and UART to PC USB, visualised on a program called SerialPlot. The prototype performed at an adequate level and had not included the logic analyser function.
+The aim of this project was to design and construct a prototype of a system with the functionality of a minimal oscilloscope, signal generator with square wave, triangle wave and sine wave output capability, and a logic analyzer. A prototype was constructed on a breadboard using a Teensy 3.2 development board and operated by a button, potentiometer, and PC USB to UART communication. The system's display made use of an SSD1306 OLED screen and UART to PC USB, visualised on a program called SerialPlot. The prototype performed at an adequate level and had not included the logic analyzer function.
 
 The video demonstration for this assignment can be found at this [link](<https://youtu.be/k7B1CE4BUfc>)
 
 ## 2. Introduction
 
-The aim of this project was to design and construct a prototype of a system with the functionality of a minimal oscilloscope, signal generator with square wave, triangle wave and sine wave output capability, and a logic analyser.
+The aim of this project was to design and construct a prototype of a system with the functionality of a minimal oscilloscope, signal generator with square wave, triangle wave and sine wave output capability, and a logic analyzer.
 
 The requirements of the project are as follows:
 
@@ -29,7 +29,7 @@ The protype was designed and constructed on a breadboard using the following com
 4. Pushbutton
 5. Various jumper wires
 
-The program was intially created in several smaller programs, each with dedicated functions, then they were integrated in a main program.
+The program was initially created in several smaller programs, each with dedicated functions, then they were integrated in a main program.
 
 ## 3. Methods
 
@@ -53,7 +53,7 @@ The circuit schematic in figure 2 was created using Autodesk Eagle. The files fo
 
 ### Operation
 
-This system can be operated simultaneously using PC USB to UART character inputs or the system's pushbutton and potentiometer as a cursor control. The user is greeted with a start screen, where they can press the button or send a serial command to start. The next screen is a selection menu where the user can choose either the minimal oscilloscope, function generator or logic analyser. The logic analyser was not completed due to time constraints. The minimal oscilloscope mode takes an analogue to digital reading on the 'ch1' pin and plots the waveform to the serial plotter on PC and on the OLED screen with the current voltage reading displayed in millivolts. The user can either send a number character to the microcontoller or scroll though the options and press the button for the mode they choose. The button or a serial command of '0' will exit the chosen mode back to the previous screen. The function generator screen gives the user another set of options of either square, triangular or sine wave generators. The generated waves are outputted to a digital to analogue converter pin.
+This system can be operated simultaneously using PC USB to UART character inputs or the system's pushbutton and potentiometer as a cursor control. The user is greeted with a start screen, where they can press the button or send a serial command to start. The next screen is a selection menu where the user can choose either the minimal oscilloscope, function generator or logic analyzer. The logic analyzer was not completed due to time constraints. The minimal oscilloscope mode takes an analogue to digital reading on the 'ch1' pin and plots the waveform to the serial plotter on PC and on the OLED screen with the current voltage reading displayed in millivolts. The user can either send a number character to the microcontoller or scroll though the options and press the button for the mode they choose. The button or a serial command of '0' will exit the chosen mode back to the previous screen. The function generator screen gives the user another set of options of either square, triangular or sine wave generators. The generated waves are outputted to a digital to analogue converter pin.
 
 ### 3.2 Finite State Machine Design
 
@@ -67,7 +67,7 @@ Firstly, the states were defined as follows:
 * **Selection Menu**: Provide a menu on the OLED screen to choose which mode the user wants.
 * **Osci. Mode**: Minimal oscilloscope mode, where a voltage signal can be read and visualised on a PC with a serial plotter and on the prototype through the SDD1306 OLED screen in real time.
 * **Func.Gen. Mode**: Function generator mode, where the user can choose which function they want.
-* **Logic An. Mode**: Logic analyser mode, where a 9600 baud dataframe can be read and interpreted.
+* **Logic An. Mode**: Logic analyzer mode, where a 9600 baud dataframe can be read and interpreted.
 * **Square wave**: Produce a square wave using the Teensy3.2's digital to analogue converter.
 * **Sine wave**: Produce a sine wave using the Teensy3.2's digital to analogue converter.
 * **Triangle Wave**: Produce a Triangle wave using the Teensy3.2's digital to analogue converter.
@@ -344,7 +344,7 @@ The external interrupt was used so that the button press would be detected almos
             }
         }
 
-When the interupt is triggered, the ISR is executed.
+When the interrupt is triggered, the ISR is executed.
 
 #### 3.4.2 Debouncing the Button
 
@@ -521,7 +521,7 @@ The code for the sine wave uses the 'sin()' function in C++. It was first develo
 ![Sine Wave Plot Issue](Project_Media/Images/Serial_Sine_Issue.PNG)
 *Figure 6: Sine Wave Signal Plot Issue*
 
-#### 3.6.3 Logic Analyser
+#### 3.6.3 Logic Analyzer
 
 This function wasn't added to the program due to time constraints, but this section will detail how it would have been attempted. A serial communication line would have been produced by an alternate set of serial TX/RX pins such as 9 and 10 (Serial2 Rx and Tx respectively) on the teensy 3.2 development board with a baudrate of 9600. A digital I/O pin would have been setup with two external interrupt functions (falling edge and rising edge) and connected to the serial2 Tx pin. An array would be setup for a 10bit dataframe. The array would have a size of 10, where an indexer variable would be used for integers 0 to 9. The indexer would be declared as a volatile global variable. Whenever either the falling or rising edge interrupt service routine is called, it would increment the indexer by 1, and a 1 would be written to the corresponding array slot on a rising edge trigger, and a 0 for a falling edge trigger. When the indexer reaches 9, a 'for' loop in the main code would be used to write the array values, 1 to 8 to an 8bit 'characterRead' variable using the arduino bitWrite() function to compile each bit into a single byte, then clear the array. The main code would then write the 'characterRead' variable into a 'ASCIchar' char-type variable. This would then be printed on the OLED screen using 'display.println('ASCIchar')'.
 
@@ -533,7 +533,7 @@ The method of plotting the data on the OLED screen was the main bottle neck of t
 
 ## 5. Discussion
 
-This prototype met all requirements apart from the logic analyser function and have individual screens for every mode. There was not enough time to implement the logic analyser function even though there were ideas on how to do it. The screens for every mode weren't used to keep the state machine simple, and the menus seemed sufficient for this.
+This prototype met all requirements apart from the logic analyzer function and have individual screens for every mode. There was not enough time to implement the logic analyzer function even though there were ideas on how to do it. The screens for every mode weren't used to keep the state machine simple, and the menus seemed sufficient for this.
 
 The performance of the minimal oscilloscope was slow. Thus, the rest of the function generators were slow because of it. The progam was designed to make use of no blocking functions such as 'for' loops, which impacted the method of data plotting on the OLED screen. A 'for' loop could have drawn all the lines and values with little delay and then the screen could have been updated afterwards. This would obviously slow down the frame rate compared to drawing the data in each scan cycle, but would benefit the plot speed. It was initially planned to use a circular array for the data points but too much time was wasted trying to understand and implement it when there was a simpler - although slower - method which was used instead.
 
@@ -541,7 +541,7 @@ The function generators were not as customisable as they could have been due to 
 
 The sine wave generator serial plot mismatch may have been fixed by using a float variable type to plot the values. The mismatch seemed to occur when the period of the wave was not matched correctly with the OLED screen updates. If the oscilloscope had have been better, the signal generators could have been time-based and displayed properly as there seemed to be a connection between the screen update time and the signal period. There had not been enough time to investigate this thoroughly.
 
-Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project time managment can be found [here](Project_Media/Clockify_Summary_Report_06_22_2020-07_05_2020.pdf) as an additional piece of project information.
+Time could have been managed better for this project and other courses so as to complete the project to a satisfactory quality. The time spent on this project was tracked using a free software product called Clockify. A summary of the project time management can be found [here](Project_Media/Clockify_Summary_Report_06_22_2020-07_05_2020.pdf) as an additional piece of project information.
 
 ## 6. References
 
